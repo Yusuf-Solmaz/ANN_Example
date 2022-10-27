@@ -2,16 +2,15 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+import matplotlib as plt
 
-#from warnings import filterwarnings
-#filterwarnings('ignore')
 
-#                             ANN Regression Example
+#                             ANN Regression Example 1
 
 #Dataset'imizi bağımlı ve bağımsız değişkenleri matrix haline getirdik. X bağımsız değişken, y bağımlı değişken.
 dataset = pd.read_excel('Folds5x2_pp.xlsx')
 
-X = dataset.drop(["PE"],axis=1).values # Better way
+X = dataset.drop(["PE"],axis=1).values # Better way axis = sütun
 y = dataset.iloc[:,-1].values
 
 
@@ -25,9 +24,16 @@ X_train , X_test , y_train , y_test = train_test_split(X,y,test_size=0.2,random_
 # Artificial Neural Network için obje oluşturduk.
 ann = tf.keras.models.Sequential()
 
+ann.add(tf.keras.layers.Dense(1548,input_shape=(4,),activation='relu'))
 # Hidden Layer oluşturduk.
-ann.add(tf.keras.layers.Dense(units=6,activation='relu'))
-ann.add(tf.keras.layers.Dense(units=6,activation='relu'))
+
+
+ann.add(tf.keras.layers.Dense( units=6,activation='relu'))
+ann.add(tf.keras.layers.Dense( units=6,activation='relu'))
+ann.add(tf.keras.layers.Dense( units=6,activation='relu'))
+
+
+
 
 # Output Layer oluşturduk.
 ann.add(tf.keras.layers.Dense(units=1))
@@ -69,11 +75,11 @@ print(finalResult)
 #Örnek Output 2
 """
  Tahmin - Gerçek Data
-[[431.81 431.23]
- [463.48 460.01]
- [466.74 461.14]
+[[440.24 431.23]
+ [466.65 460.01]
+ [472.97 461.14]
  ...
- [474.31 473.26]
- [440.1  438.  ]
- [459.55 463.28]]
+ [479.67 473.26]
+ [445.66 438.  ]
+ [463.51 463.28]]
 """
